@@ -25,5 +25,5 @@ string txt_copy(string nombre)
 
 int cant_routers(string datos)
 {
-    cout<<datos;
+    //utlizar el limite de 7 routers a mi favor
 }

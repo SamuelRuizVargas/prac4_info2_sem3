@@ -31,7 +31,7 @@ int main()
     while (terminar==false)
     {
         cout<<"1 - Inicializar un red por medio de un archivo de texto (maximo de 7 enrutadores)"<<endl;
-        cout<<"2 - Agregar/Eliminar un enrutador o conexion (maximo de 7 enrutadores)"<<endl;
+        cout<<"2 - Crear red agregando o eliminando enrutadores o conexiones (maximo de 7 enrutadores)"<<endl;
         cout<<"3 - Salir del programa"<<endl<<endl;
         cout<<"Ingrese la opcion deseada: ";cin>>opcion;
         while (opcion<1 or opcion>4)
@@ -75,7 +75,7 @@ int main()
             }
             break;
             //------------------------------------------------------------------------------------------------------------------
-            case 2: //Agregar/Eliminar un enrutador o conexion
+            case 2: //Crear red agregando o eliminando enrutadores o conexiones (maximo de 7 enrutadores)
             {
 
 
