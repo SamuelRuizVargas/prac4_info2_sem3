@@ -2,6 +2,8 @@
 #include <routers.h>
 #include <red.h>
 #include <string.h>
+#include <stdio.h>
+#include <windows.h>
 
 using namespace std;
 
@@ -27,7 +29,6 @@ int main()
     cout << "NOTA(S): Una vez cerrado el programa se borrara la red que haya sido creada en el proceso"<<endl<<endl;
 
     bool terminar=false;
-    int term;
     while (terminar==false)
     {
         cout<<"1 - Inicializar un red por medio de un archivo de texto (maximo de 7 enrutadores)"<<endl;
@@ -80,11 +81,64 @@ int main()
                         case 1: //consultas
                         {
                             //realizar metodos para consultar costos y rutas
+                            for (int i=0;i<=50;i++)
+                            {
+                                cout<<endl;
+                            }
+                            char ori, dest;
+                            bool funciona;
+                            funciona = topologia.verificar(); //se verifica la validez de la red a este momento
+                            if (funciona==false)
+                            {
+                                cout<<"La red no cumple los requisitos para hacer una consulta, agregue mas routers y conexiones!"<<endl<<endl;
+                                cout<<"Pulse la tecla 'Enter' para continuar"<<endl;
+                                cin.get();
+                            }
+                            else
+                            {
+                                cout<<"Ingrese el enrutador origen: ";cin>>ori;
+                                cout<<"Ingrese el enrutador destino: ";cin>>dest;
+                                cout<<endl;
+                                topologia.ruta_coste(ori,dest);
+                            }
                         }
                         break;
                         case 2: //modificaciones
                         {
                             //realizar metodos para hacer modificaciones a la red
+                            for (int i=0;i<=50;i++)
+                            {
+                                cout<<endl;
+                            }
+                            int opci;
+                            cout<<"Ingrese 1 para agregar un enrutador"<<endl;
+                            cout<<"Ingrese 2 para eliminar un enrutador"<<endl;
+                            cout<<"Ingrese 3 para volver"<<endl;
+                            cout<<"Digite su opcion: ";cin>>opci;
+                            while(opci<1 or opci>3)
+                            {
+                                cout<<"Opcion invalida."<<endl;
+                                cout<<"Digite su opcion: ";cin>>opci;
+                            }
+
+                            switch (opci)
+                            {
+                                case 1: //Agregar router
+                                {
+                                    //Hacer metodo en la red para crear un router y actualizar
+                                }
+                                break; //Eliminar router
+                                case 2:
+                                {
+                                    //Hacer metodo en la red para eliminar un router y actualizar
+                                }
+                                break;
+                                case 3: //volver
+                                {
+                                    cout<<"volviendo..."<<endl;
+                                }
+                                break;
+                            }
                         }
                         break;
                         case 3: //menu principal
@@ -103,25 +157,100 @@ int main()
             //------------------------------------------------------------------------------------------------------------------
             case 2: //Crear red agregando o eliminando enrutadores o conexiones (maximo de 7 enrutadores)
             {
-
-
-
-                //Codigo para volver al menu principal
-                cout<<"Ingrese 1 para terminar o 2 para seguir usando el programa: ";cin>>term;
-                while (term<1 or term>2)
+                red topologia;
+                bool preguntar=true;
+                while (preguntar==true)
                 {
-                    cout<<"Ingrese 1 para terminar o 2 para seguir usando el programa: ";cin>>term;
-                }
-                if(term==1)
-                {
-                    terminar=true;
-                }
-                else
-                {
-                    terminar=false;
                     for (int i=0;i<=50;i++)
                     {
                         cout<<endl;
+                    }
+                    int elec;
+                    cout<<"A continuacion indique que desea hacer con la red: "<<endl<<endl;
+                    cout<<"Ingrese 1 para hacer una consulta sobre rutas y costos."<<endl;
+                    cout<<"Ingrese 2 para agregar o eliminar una conexion o enrutador"<<endl<<endl;
+                    cout<<"Ingrese 3 para volver al menu principal"<<endl<<endl;
+                    cout<<"Opcion: ";cin>>elec;
+                    while(elec<1 or elec>3)
+                    {
+                        cout<<"Opcion invalida."<<endl;
+                        cout<<"Ingrese la opcion deseada: ";cin>>elec;
+                    }
+
+                    switch (elec)
+                    {
+                    case 1: //consultas
+                    {
+                        //realizar metodos para consultar costos y rutas
+                        for (int i=0;i<=50;i++)
+                        {
+                            cout<<endl;
+                        }
+                        char ori, dest;
+                        bool funciona;
+                        funciona = topologia.verificar(); //se verifica la validez de la red a este momento
+                        if (funciona==false)
+                        {
+                            cout<<"La red no cumple los requisitos para hacer una consulta, agregue mas routers y conexiones!"<<endl<<endl;
+                            cout<<"Pulse la tecla 'Enter' para continuar"<<endl;
+                            cin.get();
+                        }
+                        else
+                        {
+                            cout<<"Ingrese el enrutador origen: ";cin>>ori;
+                            cout<<"Ingrese el enrutador destino: ";cin>>dest;
+                            cout<<endl;
+                            topologia.ruta_coste(ori,dest);
+                        }
+                    }
+                    break;
+                    case 2: //modificaciones
+                    {
+                        //realizar metodos para hacer modificaciones a la red
+                        for (int i=0;i<=50;i++)
+                        {
+                            cout<<endl;
+                        }
+                        int opci;
+                        cout<<"Ingrese 1 para agregar un enrutador"<<endl;
+                        cout<<"Ingrese 2 para eliminar un enrutador"<<endl;
+                        cout<<"Ingrese 3 para volver"<<endl;
+                        cout<<"Digite su opcion: ";cin>>opci;
+                        while(opci<1 or opci>3)
+                        {
+                            cout<<"Opcion invalida."<<endl;
+                            cout<<"Digite su opcion: ";cin>>opci;
+                        }
+
+                        switch (opci)
+                        {
+                            case 1: //Agregar router
+                            {
+                                //Hacer metodo en la red para crear un router y actualizar
+                            }
+                            break; //Eliminar router
+                            case 2:
+                            {
+                                //Hacer metodo en la red para eliminar un router y actualizar
+                            }
+                            break;
+                            case 3: //volver
+                            {
+                                cout<<"volviendo..."<<endl;
+                            }
+                            break;
+                        }
+                    }
+                        break;
+                        case 3: //menu principal
+                        {
+                            preguntar=false;
+                            for (int i=0;i<=50;i++)
+                            {
+                                cout<<endl;
+                            }
+                        }
+                        break;
                     }
                 }
             }
