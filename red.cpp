@@ -31,3 +31,14 @@ void red::crear_routers(string)
 {
     //se recibe el texto y se saca la info para la creacion de los routers encontrados en caso de ser menos de 7
 }
+
+void red::ruta_coste(char origen, char destino)
+{
+    //se recibe el origen y el destino, teniendo en cuenta la informacion de las clases se imprime el costo minimo ademas de la ruta mas eficiente
+    //tambien verifica que el nombre de los router coincida
+}
+
+bool red::verificar()
+{
+    //verifica que la red tenga almenos 2 routers conectados
+}
