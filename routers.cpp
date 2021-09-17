@@ -5,7 +5,20 @@ routers::routers()
 
 }
 
-void routers::datos()
+routers::routers(char _nombre, char conexion[7], int precios[7])
 {
-    //Metodo para actualizar la lista de routers a la que esta conectado y sus precios
+    nombre=_nombre;
+    char conec;
+    int prec;
+    for(int i=0;i<7;i++)
+    {
+        conec=conexion[i];
+        prec=precios[i];
+        conexiones.insert(pair<char,int>(conec,prec));
+    }
+}
+
+routers::~routers()
+{
+
 }
