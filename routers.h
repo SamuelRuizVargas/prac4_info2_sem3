@@ -14,7 +14,8 @@ private:
 
 public:
     routers();
-    void datos();
+    routers(char,char[7],int[7]);
+    //void datos(); solo hacen en caso de hacer las modificaciones de conexion y precios
     ~routers();
 };
 
