@@ -54,15 +54,67 @@ int main()
                 string nom_arch, info;
                 cout<<"Ingrese el nombre del archivo en el que se encuentra la topologia(sin extension de archivo): ";cin>>nom_arch;
                 nom_arch+=".txt";//Se le agrega la extension
-                char name[7], conexiones[7][7];
-                int price[7][7];
+                char name[7]={0,0,0,0,0,0,0}, conexiones[7][7], name_actu, conec, conexiones_actu[7];
+                int price[7][7], price_actu[7], precio, limit;
                 red topologia= red();
                 info = topologia.txt_copy(nom_arch);//se guarda en info los datos que estaban en el txt
-                topologia.info_routers(info,name,conexiones,price);//se crean los routers usando el metodo de la clase red
-                //HACER BUCLE PARA CREAR LAS INSTANCIAS DE ROUTERS
-                /*CUANDO TODO ESTE LISTO CONTROLAR CUANDO HAY MAS DE 7
+                topologia.info_routers(info,name,conexiones,price);//se saca toda la informacion para las instancias
+                routers uno,dos,tres,cuatro,cinco,seis,siete;
+                limit=topologia.conta_routers(name);
+                for(int i=0;i<limit;i++)
+                {
+                    name_actu=name[i];
+                    for(int j=0;j<7;j++)
+                    {
+                        conec=conexiones[i][j];
+                        conexiones_actu[j]=conec;
+                    }
+                    for(int j=0;j<7;j++)
+                    {
+                        precio=price[i][j];
+                        price_actu[j]=precio;
+                    }
+                    if(i==0)
+                    {
+                        uno=routers(name_actu,conexiones_actu,price_actu);
+                    }
+                    else if(i==1)
+                    {
+                        dos=routers(name_actu,conexiones_actu,price_actu);
+                    }
+                    else if(i==2)
+                    {
+                        tres=routers(name_actu,conexiones_actu,price_actu);
+                    }
+                    else if(i==3)
+                    {
+                        cuatro=routers(name_actu,conexiones_actu,price_actu);
+                    }
+                    else if(i==4)
+                    {
+                        cinco=routers(name_actu,conexiones_actu,price_actu);
+                    }
+                    else if(i==5)
+                    {
+                        seis=routers(name_actu,conexiones_actu,price_actu);
+                    }
+                    else
+                    {
+                        siete=routers(name_actu,conexiones_actu,price_actu);
+                    }
+
+                }
+                /*CUANDO TODO ESTE LISTO CONTROLAR CUANDO HAY MAS DE 7 Y HAY PRECIOS NEGATIVOS ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+                 *
                  * */
                 bool preguntar=true;
+                if (limit==0)
+                {
+                    preguntar=false;
+                    cout<<"El programa no encontro ningun enrutador."<<endl<<endl;
+                    cout<<"Pulse la tecla 'Enter' para continuar"<<endl;
+                    cin.get();
+                }
                 while (preguntar==true)
                 {
                     for (int i=0;i<=50;i++)
@@ -72,7 +124,7 @@ int main()
                     int elec;
                     cout<<"A continuacion indique que desea hacer con la red: "<<endl<<endl;
                     cout<<"Ingrese 1 para hacer una consulta sobre rutas y costos."<<endl;
-                    cout<<"Ingrese 2 para agregar o eliminar una conexion o enrutador"<<endl<<endl;
+                    cout<<"Ingrese 2 para agregar o eliminar una conexion o enrutador"<<endl;
                     cout<<"Ingrese 3 para volver al menu principal"<<endl<<endl;
                     cout<<"Opcion: ";cin>>elec;
                     while(elec<1 or elec>3)
@@ -91,7 +143,7 @@ int main()
                             }
                             char ori, dest;
                             bool funciona;
-                            funciona = topologia.verificar(); //se verifica la validez de la red a este momento
+                            funciona = topologia.verificar(conexiones); //se verifica la validez de la red a este momento
                             if (funciona==false)
                             {
                                 cout<<"La red no cumple los requisitos para hacer una consulta, agregue mas routers y conexiones!"<<endl<<endl;
@@ -103,7 +155,7 @@ int main()
                                 cout<<"Ingrese el enrutador origen: ";cin>>ori;
                                 cout<<"Ingrese el enrutador destino: ";cin>>dest;
                                 cout<<endl;
-                                topologia.ruta_coste(ori,dest);
+                                topologia.ruta_coste(ori,dest);//POR HACER ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
                             }
                         }
                         break;
@@ -116,6 +168,7 @@ int main()
                             int opci;
                             cout<<"Ingrese 1 para agregar un enrutador"<<endl;
                             cout<<"Ingrese 2 para eliminar un enrutador"<<endl;
+                            //QUEDA FALTANDO LA OPCION PARA ELIMINAR Y AGREGAR CONEXIONES ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
                             cout<<"Ingrese 3 para volver"<<endl;
                             cout<<"Digite su opcion: ";cin>>opci;
                             while(opci<1 or opci>3)
@@ -128,16 +181,78 @@ int main()
                             {
                                 case 1: //Agregar router
                                 {
-                                    //Hacer metodo en la red para crear un router y actualizar
-                                    topologia.modificar(1);
+                                    char nom_router, conectad_router[7]={0};
+                                    int preci_router[7]={0};
+                                    topologia.modificar(&nom_router,conectad_router,preci_router);
+                                    int num_nom=topologia.cant_routers_red();
+                                    if(num_nom==0)
+                                    {
+                                        uno=routers(nom_router,conectad_router,preci_router);
+                                    }
+                                    else if(num_nom==1)
+                                    {
+                                        dos=routers(nom_router,conectad_router,preci_router);
+                                    }
+                                    else if(num_nom==2)
+                                    {
+                                        tres=routers(nom_router,conectad_router,preci_router);
+                                    }
+                                    else if(num_nom==3)
+                                    {
+                                        cuatro=routers(nom_router,conectad_router,preci_router);
+                                    }
+                                    else if(num_nom==4)
+                                    {
+                                        cinco=routers(nom_router,conectad_router,preci_router);
+                                    }
+                                    else if(num_nom==5)
+                                    {
+                                        seis=routers(nom_router,conectad_router,preci_router);
+                                    }
+                                    else
+                                    {
+                                        siete=routers(nom_router,conectad_router,preci_router);
+                                    }
                                     cout<<"Pulse la tecla 'Enter' para continuar"<<endl;
                                     cin.get();
                                 }
                                 break; //Eliminar router
                                 case 2:
                                 {
-                                    //Hacer metodo en la red para eliminar un router y actualizar
-                                    topologia.modificar(2);
+                                    int posi_elim=topologia.modificar(), a_correr=(topologia.cant_routers_red())-posi_elim;
+                                    for(int i=posi_elim;i<(posi_elim+a_correr+1);i++)
+                                    {
+                                        if(i==0)
+                                        {
+                                            uno=dos;
+                                        }
+                                        else if(i==1)
+                                        {
+                                            dos=tres;
+                                        }
+                                        else if(i==2)
+                                        {
+                                            tres=cuatro;
+                                        }
+                                        else if(i==3)
+                                        {
+                                            cuatro=cinco;
+                                        }
+                                        else if(i==4)
+                                        {
+                                            cinco=seis;
+                                        }
+                                        else if(i==5)
+                                        {
+                                            seis=siete;
+                                        }
+                                        else
+                                        {
+                                            siete.~routers();
+                                            routers siete;
+                                        }
+                                    }
+
                                     cout<<"Pulse la tecla 'Enter' para continuar"<<endl;
                                     cin.get();
                                 }
