@@ -115,8 +115,25 @@ void red::info_routers(string texto, char nombres[7], char conectados[7][7], int
         precio_string.clear();
         costos[posi][posi2]=precio;
     }
+}
 
-
+int red::conta_routers(char routers[7])//cuenta la cantidad de elementos usados en un arreglo
+{
+    char caracter;
+    int contador=0;
+    for(int i=0;i<7;i++)
+    {
+        caracter=routers[i];
+        if(caracter!=0)
+        {
+            contador++;
+        }
+        else
+        {
+            return contador;
+        }
+    }
+    return contador;
 }
 
 void red::ruta_coste(char origen, char destino)
@@ -125,14 +142,110 @@ void red::ruta_coste(char origen, char destino)
     //tambien verifica que el nombre de los router coincida
 }
 
-bool red::verificar()
+bool red::verificar(char conectados[7][7]) //verifica que haya almenos 2 routers y por lo menos alguna conexion
 {
-    //verifica que la red tenga almenos 2 routers conectados
+    bool funciona=false;
+    int num_router=conta_routers(enrutadores);
+    if(num_router<2)
+    {
+        funciona=false;
+        return funciona;
+    }
+    char caracter;
+    for(int i=0;i<7;i++)
+    {
+        for(int j=0;j<7;j++)
+        {
+            caracter=conectados[i][j];
+            if(caracter!=0)
+            {
+                funciona=true;
+                return funciona;
+            }
+        }
+    }
+    return funciona;
 }
 
-void red::modificar(int opcion)
+void red::modificar(char *nombre, char conected[7], int costos[7])//agregar routers
 {
-    //se crea un menu para agregar o eliminar routers segun la opcion con que se llama al metodo (se verifica la cantidad de routers previamente)
+    int num_routers=conta_routers(enrutadores);
+    if(num_routers==7)
+    {
+        cout<<"Se ha alcanzado el numero maximo de enrutadores en la red (7 enrutadores), para agregar otro debe eliminar alguno de los existentes"<<endl;
+    }
+    else
+    {
+        char neim, siono;
+        int cost_now;
+        cout<<"Ingrese el nombre del nuevo enrutador: ";cin>>neim;
+        cout<<endl;
+        *nombre=neim;
+        if(num_routers>0)
+        {
+            cout<<"A continuacion ingrese s/n para indicar si esta conectado al router correspondiente y luego ingrese el respectivo costo de envio en caso de existir dicha conexion."<<endl;
+            for(int i=0;i<num_routers;i++)
+            {
+                cout<<"El enrutador en creacion esta conectado con el enrutador "<<enrutadores[i]<<"? ";cin>>siono;
+                while(siono != 's' or siono != 'S' or siono != 'n' or siono != 'N')
+                {
+                    cout<<"Caracter invalido."<<endl;
+                    cout<<"El enrutador en creacion esta conectado con el enrutador "<<enrutadores[i]<<"? ";cin>>siono;
+                }
+                if(siono=='s' or siono=='S')
+                {
+                    conected[i]=enrutadores[i];
+                    cout<<"Cual es el costo de envio hacia el enrutador "<<enrutadores[i]<<"? ";cin>>cost_now;
+                    while(cost_now<0)
+                    {
+                        cout<<"El costo de envio debe ser mayor a 0."<<endl;
+                        cout<<"Cual es el costo de envio hacia el enrutador "<<enrutadores[i]<<"? ";cin>>cost_now;
+                    }
+                    costos[i]=cost_now;
+                    cout<<endl;
+                }
+            }
+            enrutadores[num_routers]=neim;
+            cout<<"El router ha sido creado con exito"<<endl<<endl;
+        }
+    }
+
+}
+
+int red::modificar()//eliminar routers
+{
+    int num_routers=conta_routers(enrutadores);
+    if(num_routers==0)
+    {
+        cout<<"Actualmente no existe ningun enrutador por lo que es imposible realizar esta accion."<<endl;
+    }
+    else
+    {
+        char nombre;
+        int posi;
+        cout<<"Ingrese el nombre del enrutador a eliminar: ";cin>>nombre;
+        bool existe=exis_router(nombre);
+        if(existe==false)
+        {
+            cout<<"No existe ningun router con ese nombre registrado en la red."<<endl;
+        }
+        else
+        {
+            posi=pos_router(nombre,enrutadores);
+            int a_correr=(conta_routers(enrutadores)-1)-posi;
+            for(int i=posi;i<(posi+a_correr+1);i++)
+            {
+                enrutadores[posi]=enrutadores[posi+1];
+            }
+            return posi;
+        }
+    }
+}
+
+int red::cant_routers_red()//devuelve la cantidad de routers actualmente en la red
+{
+    int canti=conta_routers(enrutadores);
+    return canti;
 }
 
 red::~red()//destructor
