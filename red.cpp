@@ -1,5 +1,10 @@
 #include "red.h"
 
+//Macro para la ruta de los archivos
+#define PATH "../practica4/archivotxt/"
+
+string filename=PATH;
+
 red::red()//constructor
 {
 
@@ -9,7 +14,7 @@ string red::txt_copy(string nombre) //Sacar el txt como string
 {
     ifstream archivo;
     string texto, textofin;
-    archivo.open("../practica4/archivotxt/"+nombre, ios::in);//archivo en modo lectura
+    archivo.open(filename+nombre, ios::in);//archivo en modo lectura
     if(archivo.fail())
     {
         cout<<"El archivo no se pudo abrir"<<endl;
