@@ -141,10 +141,55 @@ int red::conta_routers(char routers[7])//cuenta la cantidad de elementos usados 
     return contador;
 }
 
-void red::ruta_coste(char origen, char destino)
+void red::conexiones_red(routers enrutadores_insta[7], char conexiones[7][7], int precios[7][7])//Recive la lista de instancias y devulve los arreglos de conexiones y precios
+{
+    char caracter;
+    int pos;
+    for (int i=0;i<7;i++)
+    {
+        routers actu=enrutadores_insta[i];
+        if(actu.GetName()!=0)
+        {
+            if(actu.empty()==false)
+            {
+                char conectados[7]={0,0,0,0,0,0,0};
+                int price[7]={0,0,0,0,0,0,0};
+                actu.mapa(conectados,price);
+                caracter=actu.GetName();
+                pos=pos_router(caracter,enrutadores);
+                for(int j=0;j<7;j++)
+                {
+                    conexiones[pos][j]=conectados[j];
+                    precios[pos][j]=price[j];
+                }
+            }
+        }
+    }
+}
+
+void red::ruta_coste(char origen, char destino, char conectados[7][7], int precios[7][7])//SN Devuelve el costo y la ruta mas efectiva
 {
     //se recibe el origen y el destino, teniendo en cuenta la informacion de las clases se imprime el costo minimo ademas de la ruta mas eficiente
-    //tambien verifica que el nombre de los router coincida
+    bool exis_ori=exis_router(origen), exis_dest=exis_router(destino);
+    if (exis_dest==true and exis_ori==true)
+    {
+        //Algoritmo para hallar costos y rutas
+        string ruta_fin;
+        int costo_fin;
+
+    }
+    else if (exis_dest==false and exis_ori==true)
+    {
+        cout<<"El destino ingresado no existe"<<endl<<endl;
+    }
+    else if (exis_dest==true and exis_ori==false)
+    {
+        cout<<"El origen ingresado no existe"<<endl<<endl;
+    }
+    else
+    {
+        cout<<"No existe ninguno de los 2 enrutadores ingresados"<<endl<<endl;
+    }
 }
 
 bool red::verificar(char conectados[7][7]) //verifica que haya almenos 2 routers y por lo menos alguna conexion
