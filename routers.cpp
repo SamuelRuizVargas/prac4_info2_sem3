@@ -1,11 +1,11 @@
 #include "routers.h"
 
-routers::routers()
+routers::routers() //constructor
 {
-
+    nombre=0;
 }
 
-routers::routers(char _nombre, char conexion[7], int precios[7])
+routers::routers(char _nombre, char conexion[7], int precios[7])//sobrecarga del constructor
 {
     nombre=_nombre;
     char conec;
@@ -18,7 +18,29 @@ routers::routers(char _nombre, char conexion[7], int precios[7])
     }
 }
 
-routers::~routers()
+char routers::GetName()//devuelve el nombre del objeto
+{
+    return nombre;
+}
+
+bool routers::empty()//indica si el mapa que contiene las conexiones esta vacio
+{
+    bool vacio = conexiones.empty();
+    return vacio;
+}
+
+void routers::mapa(char conectados[7], int precios[7])//devuelve los elementos del mapa
+{
+    int contador=0;
+    for (auto itr=conexiones.begin();itr!=conexiones.end();itr++)
+    {
+        conectados[contador]=itr->first;
+        precios[contador]=itr->second;
+        contador++;
+    }
+}
+
+routers::~routers() //destructor
 {
 
 }
